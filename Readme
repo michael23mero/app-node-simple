@@ -1,0 +1,14 @@
+CONSTRUCCION:
+    > docker build . -t nombre_de_imagen
+EJECUCION:
+    > docker run -it -p 4000:3000 nombre_de_imagen
+    > docker run -d  -p 4000:3000 nombre_de_imagen
+
+    > docker-compose up --build
+
+VIEW IMAGES
+> docker images
+VIEW STATUS IMAGES
+> docker ps
+STOP IMAGES
+> docker stop id

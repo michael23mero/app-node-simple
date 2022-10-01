@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  appweb:
+    build: .
+    depends_on:
+      - database
+    links:
+      - database
+    container_name: appweb
+    environment:
+      #- PORT=5001
+      - MONGO_URI=mongodb://dbmongo:27017/test
+    ports:
+      - "5000:3000"
+  database:
+    image: mongo
+    ports:
+      - "27018:27017"
+    container_name: dbmongo
