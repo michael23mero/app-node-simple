@@ -30,7 +30,6 @@ class Servidor{
             console.log(`Servidor a su servicio en el puerto ${this.port}`)
         })
     }
-
 }
 
 module.exports = Servidor
