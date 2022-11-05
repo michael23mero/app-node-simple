@@ -1,6 +1,7 @@
 const rutas = require('express').Router()
 const speakeasy = require('speakeasy')
 const QRCode = require('qrcode')
+const nodeMailer = require('nodemailer')
 
 rutas.get('/', (req, res) =>{
     res.render('index', { title : 'Inicio'})
@@ -33,6 +34,29 @@ rutas.post('/login2', (req, res) => {
         secret, encoding: 'base32', token
     })
     res.json(validation)
+})
+
+rutas.post('/sendMail', async (req, res) => {
+    const config = {
+        host: 'smtp.gmail.com',
+        port: 587,
+        auth: {
+            user: 'maicol23mero@gmail.com',
+            pass: 'xujwoxagyopqpurr'
+        }
+    }
+
+    const message = {
+        from: 'maicol23mero@gmail.com',
+        to: req.body.para,
+        subject: 'Test mail message',
+        text: req.body.message
+    }
+
+    const transport = nodeMailer.createTransport(config)
+    await transport.sendMail(message)
+
+    res.redirect('/')
 })
 
 module.exports = rutas
