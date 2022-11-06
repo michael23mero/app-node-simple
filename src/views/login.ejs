@@ -3,17 +3,28 @@
 <div class="container mt-5 py-5">
     <div class="row mt-4">
         <div class="col-md-5 mx-auto">
-            <div class="card p-4 shadow text-center">
-                <form action="/login" method="POST">
-                    <h5>Iniciar sesion</h5><hr>
+            <div id="form-container" class="card p-4">
+                <div id="form-option">
+                    <span id="login">LOGIN</span>
+                    <span id="auth">AUTH</span>
+                    <hr id="indicador">
+                </div>
+                <form action="/login" method="POST" id="form-login">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Ingrese su username" name="username">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="Ingrese su password" name="password">
                     </div>
-                    <button class="btn btn-dark btn-block">Iniciar Sesion</button><hr>
-                    <a href="/login2" class="btn">- Doble autenticacion -</a>
+                    <button class="btn btn-info btn-block">Iniciar Sesion</button><hr>
+                </form>
+                <form action="/auth" method="POST" id="form-auth">
+                    <img src="<%=qrCode%>" alt="token"><br>
+                    <input type="hidden" name="secret" value="<%=secret%>">
+                    <div class="form-group">
+                        <input type="text" name="token" placeholder="Enter token" class="form-control">
+                    </div>
+                    <button class="btn btn-dark btn-block">Verify</button>
                 </form>
             </div>
         </div>

@@ -15,6 +15,7 @@ class Servidor{
 
     middlewares(){
         this.app.use(express.urlencoded({extended: false}))
+        this.app.use(express.static(path.join(__dirname, 'public')))
     }
 
     views(){

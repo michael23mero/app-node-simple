@@ -8,7 +8,13 @@ rutas.get('/', (req, res) =>{
 })
 
 rutas.get('/login', (req, res) =>{
-    res.render('login', { title : 'Login'})
+    const secret = speakeasy.generateSecret()
+    QRCode.toDataURL(secret.otpauth_url, (err, dataUrl) => {
+        if(err || !dataUrl){
+            return reject(err)
+        }
+        res.render('login', {title: 'login', secret: secret.base32, qrCode: dataUrl}) 
+    })
 })
 
 rutas.post('/login', (req, res) => {
@@ -17,17 +23,7 @@ rutas.post('/login', (req, res) => {
     res.redirect('/')
 })
 
-rutas.get('/login2', (req, res) => {
-    const secret = speakeasy.generateSecret()
-    QRCode.toDataURL(secret.otpauth_url, (err, dataUrl) => {
-        if(err || !dataUrl){
-            return reject(err)
-        }
-        res.render('login2', {title: 'login2', secret: secret.base32, qrCode: dataUrl}) 
-    })
-})
-
-rutas.post('/login2', (req, res) => {
+rutas.post('/auth', (req, res) => {
     console.log(req.body)
     const { token, secret } = req.body;
     const validation = speakeasy.totp.verify({
